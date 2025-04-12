@@ -27,4 +27,14 @@ impl Terminal {
         let mut stdout = io::stdout();
         execute!(stdout, cursor::MoveTo(x, y))
     }
+
+    pub fn hide_cursor() -> Result<(), io::Error> {
+        let mut stdout = io::stdout();
+        execute!(stdout, cursor::Hide)
+    }
+
+    pub fn show_cursor() -> Result<(), io::Error> {
+        let mut stdout = io::stdout();
+        execute!(stdout, cursor::Show)
+    }
 }

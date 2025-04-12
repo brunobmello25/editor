@@ -63,9 +63,9 @@ impl Editor {
             return Ok(());
         }
 
+        Terminal::hide_cursor()?;
         Self::draw_rows()?;
         Terminal::move_cursor(0, 0)?;
-
-        Ok(())
+        Terminal::show_cursor()
     }
 }
