@@ -20,20 +20,13 @@ impl Editor {
     }
 
     fn draw_rows() -> Result<(), io::Error> {
-        let size = Terminal::size()?;
-        dbg!(size);
-
-        for _ in 0..size.1 {
-            for col in 0..size.0 {
-                if col == 0 {
-                    print!("~");
-                } else {
-                    print!(" ");
-                }
+        let height = Terminal::size()?.1;
+        for current_row in 0..height {
+            print!("~");
+            if current_row + 1 < height {
+                print!("\r\n");
             }
-            print!("\r\n");
         }
-
         Ok(())
     }
 
