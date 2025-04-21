@@ -1,6 +1,6 @@
-use std::io;
+use std::{fmt::Display, io};
 
-use crossterm::{cursor, execute, terminal};
+use crossterm::{cursor, execute, style, terminal};
 
 pub struct Terminal {}
 
@@ -21,6 +21,11 @@ impl Terminal {
 
     pub fn size() -> Result<(u16, u16), io::Error> {
         terminal::size()
+    }
+
+    pub fn print(data: impl Display) -> Result<(), io::Error> {
+        let mut stdout = io::stdout();
+        execute!(stdout, style::Print(data))
     }
 
     pub fn move_cursor(x: u16, y: u16) -> Result<(), io::Error> {

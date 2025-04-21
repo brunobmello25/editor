@@ -1,7 +1,11 @@
 use std::io;
 
 use crate::terminal::Terminal;
-use crossterm::event::{Event, Event::Key, KeyCode::Char, KeyEvent, KeyModifiers, read};
+use crossterm::event::{
+    Event::{self, Key},
+    KeyCode::Char,
+    KeyEvent, KeyModifiers, read,
+};
 
 pub struct Editor {
     should_quit: bool,
@@ -22,9 +26,9 @@ impl Editor {
     fn draw_rows() -> Result<(), io::Error> {
         let height = Terminal::size()?.1;
         for current_row in 0..height {
-            print!("~");
+            Terminal::print("~")?;
             if current_row + 1 < height {
-                print!("\r\n");
+                Terminal::print("\r\n")?;
             }
         }
         Ok(())
@@ -59,7 +63,7 @@ impl Editor {
     fn update(&self) -> Result<(), io::Error> {
         if self.should_quit {
             Terminal::clear_screen()?;
-            print!("Goodbye.\r\n");
+            Terminal::print("Goodbye.\r\n")?;
             return Ok(());
         }
 
